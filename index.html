@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>хотим зачет</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1 class="full-name">Бакай и Балусов АДБ-21-09</h1>
+                <div class="contact-info">
+                    <p class="email">Email: <span class="email-val">polyabakay@gmail.com</span></p>
+                    <p class="email">Email: <span class="email-val">Balusovvv@yandex.ru</span></p>
+                 
+                </div>
+                <div class="about">
+                    <p class="skills">Наши достижения:</p>
+                    <p class="desc">Сдали ПМР с первого раза.</p>
+                </div>
+            </div>
+        </header>
+        <div class="details">
+            <section>
+                <h2 class="section__title">Образование:</h2>
+                <ul class="section__list">
+                    <li class="section__list-item">
+                        
+                        <div class="education-item">
+                            <div class="name">МГТУ "СТАНКИН"</div>
+                            <div class="addr">Москва, РФ</div>
+                            
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <div class="picture">
+            <img src="https://media.tenor.com/L5iZS7K64eMAAAAC/please-honey-please.gif">
+        </div>
+        <div class="button">
+            <h2 class="button-title">Тык</h2>
+            <div class="button-sama">
+                <button class="styled" type="button" onclick="javascript:alert('Спасибо за тык');">тут!</button>
+            </div>
+        </div>
+        <div class="data">
+            <h2 class="data__title">Сбор данных</h2>
+            <button class="btn" onclick="myFunction()">Начать сбор данных</button>
+            <ul id="demo"></ul>
+        </div>
+    </div>
+    <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        function myFunction() {
+            (async () => {
+                let response = await fetch('https://kav-api.kovalev.team/servodrive/lastActualData?servoDriveId=1');
+                let el = document.getElementById('demo')
+                el.innerHTML = ""
+                let text = await response.text(); // прочитать тело ответа как текст
+                for (const [key, value] of Object.entries(JSON.parse(text)[0])) {
+                    const newEl = document.createElement("li")
+                    newEl.appendChild(document.createTextNode(`${key}: ${value}`))
+                    el.appendChild(newEl)
+                    await sleep(100)
+                }
+            })()
+        }
+    </script>
+</body>
+</html>
